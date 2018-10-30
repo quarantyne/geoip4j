@@ -11,12 +11,11 @@ plugins {
     id 'java-library'
 }
 
-version "1.0.0"
+version "1.0.1"
 
 dependencies {
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
     testImplementation 'junit:junit:4.12'
-    implementation group: 'com.github.quarantyne', name: 'geoip4j', version: version
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -24,7 +23,6 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
-    maven { url 'https://jitpack.io' }
 }
 
 task compileGeoLite2Database(type: JavaExec) {
