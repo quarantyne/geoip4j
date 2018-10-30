@@ -2,9 +2,8 @@ package com.quarantyne.geoip4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +18,12 @@ public final class GeoIp4jImpl implements GeoIp4j {
 
   public GeoIp4jImpl()  {
     this.map = new HashMap<>();
-    Path file = Paths.get(getClass().getResource("/geoip.csv").getFile());
+    Reader file =
+        new InputStreamReader(this.getClass().getResourceAsStream("/geoip.csv"));
     GeoIpRangeRecord record;
     List<GeoIpRangeRecord> geoIpRangeRecordList;
 
-    try (BufferedReader reader = Files.newBufferedReader(file)) {
+    try (BufferedReader reader = new BufferedReader(file)) {
       String line;
       while ((line = reader.readLine()) != null) {
         record = parse(line);

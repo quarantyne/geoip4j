@@ -1,8 +1,8 @@
 package com.quarantyne.geoip4j;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.Test;
 
 public class GeoIp4jTest {
   GeoIp4jImpl geoIp4j = new GeoIp4jImpl();
