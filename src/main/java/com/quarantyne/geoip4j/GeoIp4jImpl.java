@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-final class GeoIp4jImpl implements GeoIp4j {
+public final class GeoIp4jImpl implements GeoIp4j {
   private Map<String, List<GeoIpRangeRecord>> map;
   private static String CSV_SEP = ",";
   private static String IP_SEP = "\\.";
