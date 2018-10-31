@@ -12,12 +12,16 @@ import java.util.Optional;
 
 public final class GeoIp4jImpl implements GeoIp4j {
   private Map<String, List<GeoIpRangeRecord>> map;
+  private Map<String, String> codeToName;
+
   private static String CSV_SEP = ",";
   private static String IP_SEP = "\\.";
   private static String CIDR_SEP = "/";
 
   public GeoIp4jImpl()  {
     this.map = new HashMap<>();
+    this.codeToName = new HashMap<>();
+
     Reader file =
         new InputStreamReader(this.getClass().getResourceAsStream("/geoip.csv"));
     GeoIpRangeRecord record;
@@ -27,6 +31,7 @@ public final class GeoIp4jImpl implements GeoIp4j {
       String line;
       while ((line = reader.readLine()) != null) {
         record = parse(line);
+        codeToName.putIfAbsent(record.getCountryCode(), record.getFullName());
         if (map.containsKey(record.getFirstQuad())) {
           geoIpRangeRecordList = map.get(record.getFirstQuad());
           geoIpRangeRecordList.add(record);
@@ -56,6 +61,14 @@ public final class GeoIp4jImpl implements GeoIp4j {
       }
     }
     return result;
+  }
+
+  @Override
+  public Optional<String> getLongName(String isoCode) {
+    if (isoCode == null || isoCode.isEmpty()) {
+      return Optional.empty();
+    }
+    return Optional.ofNullable(codeToName.get(isoCode));
   }
 
   boolean isValidIp(String ip) {

@@ -33,7 +33,11 @@ public class GeoIp4jTest {
   public void testParser() {
     assertThat(geoIp4j.parse("1.2.3.4/5,fr,france"))
         .isEqualTo(new GeoIpRangeRecord("fr", "france", 16909060L, 134217728, "1"));
+  }
 
+  @Test
+  public void testCodeToName() {
+    assertThat(geoIp4j.getLongName("fr")).contains("France");
   }
 
   @Test

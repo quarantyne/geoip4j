@@ -46,6 +46,8 @@ Step 2. Add the dependency
 GeoIp4j geoIp4j = new GeoIp4jImpl();
 Optional<GeoName> geoName = geoIp4j.getGeoName("87.247.19.126");
 // Optional[GeoName{isoCode='KZ', englishName='Kazakhstan'}]
+geoIp4j.getLongName("fr");
+// <Optional[France]> , in case you stored iso code and need full name
 ```
 
 ## Implementation notes
