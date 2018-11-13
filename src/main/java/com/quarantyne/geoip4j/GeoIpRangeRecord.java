@@ -39,7 +39,7 @@ final class GeoIpRangeRecord {
   }
 
   public boolean includes(Long ip) {
-    return ipRangeStart <= ip && ip <= (ipRangeStart + cidrBlockSize);
+    return ipRangeStart <= ip && ip < (ipRangeStart + cidrBlockSize);
   }
 
   public String getFirstQuad() {
