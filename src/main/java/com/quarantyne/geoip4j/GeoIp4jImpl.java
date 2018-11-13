@@ -54,10 +54,12 @@ public final class GeoIp4jImpl implements GeoIp4j {
     String key = ip.split("\\.")[0];
     List<GeoIpRangeRecord> shard = map.get(key);
     Optional<GeoName> result = Optional.empty();
-    for (GeoIpRangeRecord record: shard) {
-      if (record.includes(ipToLong(ip))) {
-        result = Optional.of(new GeoName(record.getCountryCode(), record.getFullName()));
-        break;
+    if (shard != null) {
+      for (GeoIpRangeRecord record: shard) {
+        if (record.includes(ipToLong(ip))) {
+          result = Optional.of(new GeoName(record.getCountryCode(), record.getFullName()));
+          break;
+        }
       }
     }
     return result;
