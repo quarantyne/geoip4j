@@ -97,7 +97,8 @@ public final class GeoIp4jImpl implements GeoIp4j {
     return new GeoIpRangeRecord(cols[1], cols[2], ipToLong(quads), cidrBlockSize, quads[0]);
   }
 
-  long ipToLong(String[] ipAddressInArray) {
+  //TODO move these conversions utilities to a library
+  public static long ipToLong(String[] ipAddressInArray) {
     long result = 0;
     for (int i = 3; i >= 0; i--) {
       long ip = Long.parseLong(ipAddressInArray[3 - i]);
@@ -106,11 +107,11 @@ public final class GeoIp4jImpl implements GeoIp4j {
     return result;
   }
 
-  long ipToLong(String ipAddress) {
+  public static long ipToLong(String ipAddress) {
     return ipToLong(ipAddress.trim().split("\\."));
   }
 
-  int getCidrBlockSize(int cidr) {
+  public static int getCidrBlockSize(int cidr) {
     if (0 < cidr  && cidr <= 32) {
       return (int) Math.pow(2, 32 - cidr);
     } else {
